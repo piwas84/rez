@@ -3,7 +3,8 @@
  * на базі hdrezka-ui-full-ydesign(5).js
  *
  * Тільки CSS. Не чіпає логіку карток / YDesign / Nova Skin.
- * Жовто-блакитний акцент + обводка навколо картки + смужка зверху і з боків.
+ * Жовто-блакитний акцент + повна обводка картки + смужки.
+ * Оптимізовано під Android TV.
  */
 (function () {
     'use strict';
@@ -12,25 +13,25 @@
     window.hdrezka_style_ua_v1 = true;
 
     var STYLE_ID = 'hdrezka-style-ua-v1';
-    var VERSION = '7.3-ua';
+    var VERSION = '7.4-ua';
 
     var BLUE = '#0057B8';
     var YELLOW = '#FFD700';
-    var BLUE_SOFT = 'rgba(0, 87, 184, 0.40)';
+    var BLUE_SOFT = 'rgba(0, 87, 184, 0.35)';
 
     function inject() {
         if (document.getElementById(STYLE_ID)) return;
 
         var css = `
-/* HDRezka Style ${VERSION} — UA accent + card outline + top/side stripes */
+/* HDRezka Style ${VERSION} — UA + full outline + lighter for Android TV */
 
 :root {
     --hd-accent: ${BLUE};
     --hd-accent-yellow: ${YELLOW};
     --hd-accent-soft: ${BLUE_SOFT};
-    --hd-bg: #0b0b0b;
-    --hd-card: #141414;
-    --hd-border: #1a2a4a;
+    --hd-bg: #121212;
+    --hd-card: #1c1c1c;
+    --hd-border: #1e2a45;
     --hd-text: #f0f0f0;
     --hd-muted: #9a9a9a;
 }
@@ -40,7 +41,7 @@ body {
 }
 
 .head {
-    background: rgba(11, 11, 11, 0.95) !important;
+    background: rgba(18, 18, 18, 0.96) !important;
     border-bottom: 1px solid var(--hd-border) !important;
 }
 
@@ -52,13 +53,13 @@ body {
 }
 
 .menu {
-    background: #0e0e0e !important;
+    background: #161616 !important;
 }
 
 .menu__item {
     border-radius: 8px !important;
     margin: 2px 8px !important;
-    transition: background 0.15s ease !important;
+    transition: background 0.12s ease !important;
 }
 
 .menu__item.focus,
@@ -72,41 +73,41 @@ body {
     color: #fff !important;
 }
 
-/* Картка: обводка + смужки зверху і з боків */
+/* Картка: повна обводка + смужки з усіх боків */
 .card {
     border-radius: 12px !important;
     overflow: hidden !important;
     background: var(--hd-card) !important;
-    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+    transition: transform 0.15s ease, box-shadow 0.15s ease !important;
     position: relative !important;
     box-shadow: 0 0 0 1px ${BLUE}, 0 0 0 3px ${YELLOW} !important;
     box-sizing: border-box !important;
 }
 
-/* смужка зверху: синя | жовта */
+/* верхня смужка: синя | жовта */
 .card::before {
     content: "" !important;
     position: absolute !important;
     top: 0 !important;
     left: 0 !important;
     right: 0 !important;
-    height: 3px !important;
+    height: 2px !important;
     background: linear-gradient(90deg, ${BLUE} 0%, ${BLUE} 50%, ${YELLOW} 50%, ${YELLOW} 100%) !important;
     z-index: 16 !important;
     pointer-events: none !important;
-    box-sizing: border-box !important;
 }
 
-/* смужки з боків: ліво синя, право жовта */
+/* бокові + нижня смужки */
 .card::after {
     content: "" !important;
     position: absolute !important;
-    top: 3px !important;
+    top: 2px !important;
     bottom: 0 !important;
     left: 0 !important;
     right: 0 !important;
-    border-left: 3px solid ${BLUE} !important;
-    border-right: 3px solid ${YELLOW} !important;
+    border-left: 2px solid ${BLUE} !important;
+    border-right: 2px solid ${YELLOW} !important;
+    border-bottom: 2px solid ${YELLOW} !important;
     border-radius: 0 0 12px 12px !important;
     z-index: 16 !important;
     pointer-events: none !important;
@@ -115,9 +116,9 @@ body {
 
 .card.focus,
 .card.hover {
-    transform: translateY(-4px) !important;
+    transform: translateY(-2px) !important;
     box-shadow:
-        0 8px 20px rgba(0, 0, 0, 0.7),
+        0 6px 16px rgba(0, 0, 0, 0.55),
         0 0 0 2px ${BLUE},
         0 0 0 4px ${YELLOW} !important;
     z-index: 5 !important;
@@ -153,11 +154,11 @@ body {
 .items-line__title::before {
     content: "" !important;
     display: inline-block !important;
-    width: 4px !important;
-    height: 0.95em !important;
+    width: 3px !important;
+    height: 0.9em !important;
     background: linear-gradient(180deg, ${BLUE} 50%, ${YELLOW} 50%) !important;
     border-radius: 2px !important;
-    margin-right: 10px !important;
+    margin-right: 9px !important;
     vertical-align: -0.1em !important;
 }
 
@@ -194,11 +195,11 @@ body {
 }
 
 ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
 }
 ::-webkit-scrollbar-thumb {
-    background: #333;
+    background: #3a3a3a;
     border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
