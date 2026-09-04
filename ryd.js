@@ -1,9 +1,9 @@
 /**
  * HDRezka Style for Lampa — UA edition
- * Версія 7.5-ua
+ * Версія 7.6-ua
  *
- * Виправлено: зникнення верхнього меню та карток при фокусі
- * Оптимізовано під Android TV
+ * При фокусі: ширша обводка + випукла картка
+ * Стабільно для Android TV
  */
 (function () {
     'use strict';
@@ -12,7 +12,7 @@
     window.hdrezka_style_ua_v1 = true;
 
     var STYLE_ID = 'hdrezka-style-ua-v1';
-    var VERSION = '7.5-ua';
+    var VERSION = '7.6-ua';
 
     var BLUE = '#0057B8';
     var YELLOW = '#FFD700';
@@ -21,7 +21,7 @@
         if (document.getElementById(STYLE_ID)) return;
 
         var css = `
-/* HDRezka Style ${VERSION} — UA + stable focus for Android TV */
+/* HDRezka Style ${VERSION} — UA + wider outline + raised card on focus */
 
 :root {
     --hd-accent: ${BLUE};
@@ -79,11 +79,11 @@ body {
     background: var(--hd-card) !important;
     position: relative !important;
     box-sizing: border-box !important;
-    /* Проста обводка замість складних тіней */
     border: 2px solid ${BLUE} !important;
     box-shadow: 0 0 0 2px ${YELLOW} !important;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
-    overflow: visible !important; /* важливо — не ріжемо картку */
+    transition: border-width 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease !important;
+    overflow: visible !important;
+    transform: scale(1) !important;
 }
 
 /* Верхня смужка */
@@ -114,12 +114,17 @@ body {
     border-radius: 0 0 12px 12px !important;
 }
 
-/* Фокус картки — без transform, тільки підсвітка */
+/* Фокус: ширша обводка + випукла картка */
 .card.focus,
 .card.hover {
-    border-color: ${YELLOW} !important;
-    box-shadow: 0 0 0 3px ${BLUE}, 0 4px 14px rgba(0, 0, 0, 0.45) !important;
-    z-index: 10 !important;
+    border: 3px solid ${YELLOW} !important;
+    box-shadow:
+        0 0 0 3px ${BLUE},
+        0 0 0 6px rgba(255, 215, 0, 0.35),
+        0 10px 24px rgba(0, 0, 0, 0.55),
+        0 4px 8px rgba(0, 87, 184, 0.25) !important;
+    transform: scale(1.04) !important;
+    z-index: 20 !important;
 }
 
 .card__view {
